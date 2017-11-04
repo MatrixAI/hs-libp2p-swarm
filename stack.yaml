@@ -36,7 +36,10 @@ resolver: lts-9.4
 # non-dependency (i.e. a user package), and its test suites and benchmarks
 # will not be run. This is useful for tweaking upstream packages.
 packages:
-- '.'
+- location: '.'
+  subdirs:
+    - warp
+# extra-dep: true
 - location:
     git: git@github.com:MatrixAI/haskell-multiaddr.git
     commit: 1c9dc28ad6650f578676bc75bfc0b7ec47c11a30 
@@ -45,7 +48,6 @@ packages:
     git: git@github.com:MatrixAI/haskell-multihash.git
     commit: abd0cffac2b66e658e9345437a03d31fe7779ddc 
   extra-dep: true
-
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
 extra-deps: 

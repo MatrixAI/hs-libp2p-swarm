@@ -19,7 +19,9 @@ library
                      , Network.LibP2P.TCP
   build-depends:       base >= 4.7 && < 5
                      , bytestring
+                     , cereal
                      , hs-multiaddr
+                     , http2
                      , io-streams
                      , iproute
                      , network

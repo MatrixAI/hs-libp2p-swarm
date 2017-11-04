@@ -62,7 +62,9 @@ remoteAddr' :: TCP Conn -> MA.Multiaddr
 remoteAddr' (TCPConn s la ra) = ra
 
 rawStream' :: TCP Conn -> IO (InputStream BS.ByteString, OutputStream BS.ByteString)
-rawStream' (TCPConn s _ _) = Streams.socketToStreams s
+rawStream' (TCPConn s _ _) = do
+  (is, os) <- Streams.socketToStreams s
+  return $ (Streams.lockingInputStream is, Streams.lockingOutputStream os)
 
 sockAddrToMultiAddr :: NS.SockAddr -> MA.Multiaddr
 sockAddrToMultiAddr (NS.SockAddrInet p ha)

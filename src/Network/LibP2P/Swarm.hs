@@ -17,12 +17,12 @@ import           Network.Socket.ByteString
 import           System.IO.Streams         (InputStream, OutputStream)
 
 data Conn
+data Config
 
 type ByteStream = (InputStream BS.ByteString, OutputStream BS.ByteString)
-
+type RawStream = ByteStream
 newtype Protocol = Protocol [Text] deriving (Show, Eq)
-
---newtype Service a = Service (ByteStream -> IO (a, ByteStream))
+-- TODO: instance Serialize Protocol where
 
 class HasConnType tpt where
   acceptConn  :: MA.Multiaddr -> IO (tpt Conn)
@@ -30,7 +30,7 @@ class HasConnType tpt where
   closeConn   :: tpt Conn -> IO ()
   localAddr   :: tpt Conn -> MA.Multiaddr
   remoteAddr  :: tpt Conn -> MA.Multiaddr
-  rawStream   :: tpt Conn -> IO ByteStream
+  rawStream   :: tpt Conn -> IO RawStream
 
 data ServiceId = SIDText Text
                | SIDMultiaddr MA.Multiaddr
